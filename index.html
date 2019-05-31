@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html ng-app="app1" >
+<title>Airport</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="style.css">
+<style>
+
+</style>
+<body>
+
+<!-- !PAGE CONTENT! -->
+<div class="bg-light container" ng-controller="ctrl1">
+
+<!-- Header -->
+<header class="w3-panel w3-center w3-opacity" style="padding:3px">
+  <h1>Airport Finder</h1>
+  
+  <div class="w3-padding-22">
+    <div class="w3-bar w3-border">
+      <!--<a href="#" class="w3-bar-item w3-button">Home</a>
+      <a href="#" class="w3-bar-item w3-button w3-light-grey">Portfolio</a>
+      <a href="#" class="w3-bar-item w3-button">Contact</a>
+      <a href="#" class="w3-bar-item w3-button w3-hide-small">Weddings</a>-->
+    </div>
+  </div>
+</header>
+
+<!-- Photo Grid -->
+<div class="w3-row-padding w3-grayscale row"  style="margin-bottom:20px">
+        <div class="w3-half">
+                <center>
+                <span class="sider">Latitude</span><br>
+                <input type="number" ng-change="getValue()" step="0.01" ng-model="lat" class="buttontype form-control" size='4'/><br><br>
+                <span class="sider"> Range</span><br>
+                <button class="button button4 bg-danger" ng-click="subValue(lat_r,'lat_r');getValue();"> - </button>
+                <div class="range button1 button4 bg-secondary">&#177{{lat_r}}</div>
+                <button class="button button4" ng-click="addValue(lat_r,'lat_r');getValue();">+</button><br><br>
+                <div>{{lat - lat_r |number:1}} <hr width="{{lat_stick}}" class='hr-change'> {{lat + lat_r |number:1}} <br>
+                        <hr width="250" class='hr-still'>
+                         {{lat}}
+                 </div>
+                </center>
+        </div>
+        <div class="w3-half">
+                <center>
+                <span class="sider">Longitude</span><br>
+                <input type="number" ng-change="getValue()" step="0.01" ng-model="lon" class="buttontype form-control" size='4'/><br><br>
+                <span class="sider"> Range</span><br>
+                <button class="button button4 bg-danger" ng-click="subValue(lon_r,'lon_r');getValue();"> - </button>
+                <div class="range button1 button4 bg-secondary">&#177{{lon_r}}</div>
+                <button class="button button4" ng-click="addValue(lon_r,'lon_r');getValue();">+</button><br><br>
+                <div>{{lon - lon_r |number:1}} <hr width="{{lon_stick}}" class='hr-change'> {{lon + lon_r |number:1}} <br>
+                        <hr width="250" class='hr-still'>
+                         {{lon}}
+                 </div>
+                </center>
+        </div>
+</div>
+<div>
+        <center>
+        <button class="button button4" ng-click="getValue()">Search</button>
+        </center>
+</div>
+<br><br>
+<div id="listing" style="display: none">
+        <center>
+               <h3>There are {{total_rows}} Airports in your search range</h3>
+        <br>
+        <div class='lists' ng-repeat="airport in data_all track by $index">
+                <table width="100%">
+                        <tr>
+                                <td class="float-left">
+                                                <h4>{{$index + 1}}.</h4> 
+                                </td>
+                                <td>
+                                                <h4>{{airport.fields.name}}</h4> 
+                                </td>
+                                <td class="float-right"> 
+                                                <h4>{{airport.fields.miles|number:1}} Miles</h4> 
+                                </td>
+                        </tr>
+                </table>
+        </div>
+        </center>
+        <br><br>
+</div>
+<!-- End Page Content -->
+</div>
+
+<!-- Footer 
+<footer class="w3-container w3-padding-64 w3-light-grey w3-center w3-large"> 
+</footer> -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<!-- Load the JS Module -->
+<script src="my_script.js"></script>
+</body>
+</html>
