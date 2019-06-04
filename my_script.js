@@ -2,12 +2,14 @@ var app1 = angular.module('app1', []);
 
 app1.controller('ctrl1', function($scope) {
 
-  $scope.lon = 15.00;
-  $scope.lat = 5;
+  $scope.lon = -97.00;
+  $scope.lat = 35;
   $scope.total_rows = 0;
+  $itration = 1;
+  var data_all = [];
 
-  $scope.lat_r = 5;
-  $scope.lon_r = 15;
+  $scope.lat_r = 2.5;
+  $scope.lon_r = 2.5;
 
   $scope.lat_stick = $scope.lat_r*5;
   $scope.lon_stick = $scope.lon_r*5;
@@ -34,7 +36,12 @@ app1.controller('ctrl1', function($scope) {
     }
   };
 
-  $scope.getValue = function() {  
+  $scope.getValue = function(flag) {  
+    if(flag == 'new'){
+      delete $scope.bookmark;
+      data_all = [];
+      $itration = 1;
+    }
     $.ajax({
       url : 'api.php',
       type : 'GET',
@@ -43,12 +50,27 @@ app1.controller('ctrl1', function($scope) {
           'lat' : $scope.lat,
           'lon_range': $scope.lat_r,
           'lat_range': $scope.lon_r,
+          'bookmark': $scope.bookmark,
         },
       dataType:'json',
-      success : function(data) {              
-          //console.log('Data: '+JSON.stringify(data, null, 2));
-            data.rows.sort(function(a, b){ return a.fields.miles - b.fields.miles;});
-            $scope.assign(data);
+      success : function(data) {  
+        if(flag == 'new'){
+          data_all = data.rows;
+        } else {
+          data_all.push.apply(data_all,data.rows);
+        }      
+        if(data.total_rows > 25*$itration){
+          $scope.$apply(function () {
+            $scope.bookmark = data.bookmark;
+          });
+          $itration++;
+          $scope.getValue('old');
+        } else {
+          data_all.sort(function(a, b){ return a.fields.miles - b.fields.miles;});
+          //console.clear();
+          //console.log('Data: '+JSON.stringify(data_all, null, 2));
+          $scope.assign(data,data_all);
+        }
       },
       error : function(request,error)
       {
@@ -63,10 +85,10 @@ app1.controller('ctrl1', function($scope) {
   $scope.airport_name = '';
   $scope.airport_distance = '';
 
-  $scope.assign = function(data) {
+  $scope.assign = function(data,data_all) {
     $scope.$apply(function () {
       $scope.total_rows = data.total_rows;
-      $scope.data_all = data.rows;
+      $scope.data_all = data_all;
     });
   }; 
 

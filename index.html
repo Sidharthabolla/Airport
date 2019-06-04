@@ -36,11 +36,11 @@
         <div class="w3-half">
                 <center>
                 <span class="sider">Latitude</span><br>
-                <input type="number" ng-change="getValue()" step="0.01" ng-model="lat" class="buttontype form-control" size='4'/><br><br>
+                <input type="number" ng-change="getValue('new')" step="0.01" ng-model="lat" class="buttontype form-control" size='4'/><br><br>
                 <span class="sider"> Range</span><br>
-                <button class="button button4 bg-danger" ng-click="subValue(lat_r,'lat_r');getValue();"> - </button>
+                <button class="button button4 bg-danger" ng-click="subValue(lat_r,'lat_r');getValue('new');"> - </button>
                 <div class="range button1 button4 bg-secondary">&#177{{lat_r}}</div>
-                <button class="button button4" ng-click="addValue(lat_r,'lat_r');getValue();">+</button><br><br>
+                <button class="button button4" ng-click="addValue(lat_r,'lat_r');getValue('new');">+</button><br><br>
                 <div>{{lat - lat_r |number:1}} <hr width="{{lat_stick}}" class='hr-change'> {{lat + lat_r |number:1}} <br>
                         <hr width="250" class='hr-still'>
                          {{lat}}
@@ -50,11 +50,11 @@
         <div class="w3-half">
                 <center>
                 <span class="sider">Longitude</span><br>
-                <input type="number" ng-change="getValue()" step="0.01" ng-model="lon" class="buttontype form-control" size='4'/><br><br>
+                <input type="number" ng-change="getValue('new')" step="0.01" ng-model="lon" class="buttontype form-control" size='4'/><br><br>
                 <span class="sider"> Range</span><br>
-                <button class="button button4 bg-danger" ng-click="subValue(lon_r,'lon_r');getValue();"> - </button>
+                <button class="button button4 bg-danger" ng-click="subValue(lon_r,'lon_r');getValue('new');"> - </button>
                 <div class="range button1 button4 bg-secondary">&#177{{lon_r}}</div>
-                <button class="button button4" ng-click="addValue(lon_r,'lon_r');getValue();">+</button><br><br>
+                <button class="button button4" ng-click="addValue(lon_r,'lon_r');getValue('new');">+</button><br><br>
                 <div>{{lon - lon_r |number:1}} <hr width="{{lon_stick}}" class='hr-change'> {{lon + lon_r |number:1}} <br>
                         <hr width="250" class='hr-still'>
                          {{lon}}
@@ -64,7 +64,7 @@
 </div>
 <div>
         <center>
-        <button class="button button4" ng-click="getValue()">Search</button>
+        <button class="button button4" ng-click="getValue('new')">Search</button>
         </center>
 </div>
 <br><br>
