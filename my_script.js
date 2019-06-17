@@ -12,6 +12,7 @@ app1.controller('ctrl1', function($scope) {
   function showPosition(position) {
     $scope.lon = position.coords.longitude;
     $scope.lat = position.coords.latitude;
+    console.log($scope.lat)
   }
 
   
