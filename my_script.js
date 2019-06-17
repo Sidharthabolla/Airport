@@ -2,8 +2,19 @@ var app1 = angular.module('app1', []);
 
 app1.controller('ctrl1', function($scope) {
 
-  $scope.lon = -97.00;
-  $scope.lat = 35;
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else { 
+    $scope.lon = 17;
+    $scope.lat = 35;
+  }
+  
+  function showPosition(position) {
+    $scope.lon = position.coords.longitude;
+    $scope.lat = position.coords.latitude;
+  }
+
+  
   $scope.total_rows = 0;
   $itration = 1;
   var data_all = [];
