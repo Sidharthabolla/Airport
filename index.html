@@ -36,7 +36,7 @@
 <div id="listing" style="display: none">
   <center>
   <h3 class="w3-panel w3-center w3-opacity" ng-if="!total_rows">Searching <img src="searching.gif" style="height:50px;border-radius: 2.5em"></h3>
-  <h3 ng-if="total_rows">There are {{total_rows}} Airports in your search range</h3>
+  <h3 ng-if="total_rows">Airports in your search range</h3>
   <br>
   <div ng-repeat="airport in data_all track by $index">
     <div ng-if="airport.fields.miles <= radius" class='lists'">
