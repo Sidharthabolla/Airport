@@ -5,14 +5,13 @@ app1.controller('ctrl1', function($scope) {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(showPosition);
   } else { 
-    $scope.lon = 17;
-    $scope.lat = 35;
+    $scope.lon = position.coords.longitude;
+    $scope.lat = position.coords.latitude;
   }
   
   function showPosition(position) {
     $scope.lon = position.coords.longitude;
     $scope.lat = position.coords.latitude;
-    console.log($scope.lat)
   }
 
   
@@ -20,8 +19,9 @@ app1.controller('ctrl1', function($scope) {
   $itration = 1;
   var data_all = [];
 
-  $scope.lat_r = 2.5;
-  $scope.lon_r = 2.5;
+  $scope.lat_r = 12;
+  $scope.lon_r = 12;
+  $scope.radius = 500;
 
   $scope.lat_stick = $scope.lat_r*5;
   $scope.lon_stick = $scope.lon_r*5;
@@ -29,6 +29,12 @@ app1.controller('ctrl1', function($scope) {
   if($scope.lat_stick > 325){
     $scope.lat_stick = 325;
   }
+
+  $scope.rangefinder = function(target) {
+    $scope.$apply(function () {
+      $scope.radius = target;
+    });
+  };
 
   $scope.addValue = function(a,b) {
     $scope[b] = (+a + 2.5);
@@ -48,11 +54,22 @@ app1.controller('ctrl1', function($scope) {
     }
   };
 
+  $scope.addRadius = function(a,b) {
+    $scope[b] = (+a + 1);
+  };
+
+  $scope.subRadius = function(a,b) {
+    $scope[b] = (+a - 1);
+  };
+
   $scope.getValue = function(flag) {  
     if(flag == 'new'){
       delete $scope.bookmark;
       data_all = [];
       $itration = 1;
+    }
+    if($scope.lon){
+      navigator.geolocation.getCurrentPosition(showPosition);
     }
     $.ajax({
       url : 'api.php',
@@ -79,8 +96,6 @@ app1.controller('ctrl1', function($scope) {
           $scope.getValue('old');
         } else {
           data_all.sort(function(a, b){ return a.fields.miles - b.fields.miles;});
-          //console.clear();
-          //console.log('Data: '+JSON.stringify(data_all, null, 2));
           $scope.assign(data,data_all);
         }
       },
@@ -88,7 +103,7 @@ app1.controller('ctrl1', function($scope) {
       {
         alert("Request: "+JSON.stringify(request));
       }
-    }); 
+    });
 
     $("#listing").show();
   };
@@ -102,6 +117,6 @@ app1.controller('ctrl1', function($scope) {
       $scope.total_rows = data.total_rows;
       $scope.data_all = data_all;
     });
-  }; 
+  };
 
 });

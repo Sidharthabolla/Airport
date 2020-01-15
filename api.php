@@ -2,7 +2,7 @@
 
 require_once('functions.php');
 $lon = new stdClass();
-$lan = new stdClass();
+$lat = new stdClass();
 
 $lon->user = $_REQUEST['lon'];
 $lat->user = $_REQUEST['lat'];
